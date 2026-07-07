@@ -68,7 +68,7 @@ ros2 topic pub --once /emergency_stop std_msgs/msg/Bool "data: true"
 오른쪽 실물로 갈아 끼우면 된다.
 
 ## 2단계 확장
-
+**cctv로 맵만들기** : cctv로 bev를 통해서, 맵을 만든뒤,주행
 **바퀴 물리 포함 (MecanumDrive)**: VelocityControl은 바퀴를 생략하고 모델에 속도를
 직접 인가한다(제어 로직 검증엔 이게 정확함). 바퀴 미끄러짐까지 보고 싶으면 로봇 모델에
 바퀴 4개 링크 + 조인트를 추가하고 플러그인을 `gz::sim::systems::MecanumDrive`로 교체.
