@@ -1,0 +1,170 @@
+<?xml version="1.0" ?>
+<!--
+  deliverybot_parking.sdf — ros2_deliverybot_ws의 ParkingLot.world 레이아웃 재구성
+  (원본은 Gazebo Classic + 누락 메시라서 Harmonic용으로 재제작)
+
+  원본에서 추출한 배치 (좌표 동일):
+    prius_hybrid (5.58, 9.31) / suv (20.36, 8.91) / pickup (16.90, -8.63, 세로)
+    hatchback (20.34, 33.03, 세로) / 콘 5개
+  맵 영역: x [-2, 30], y [-13, 37]  (32 x 50 m)
+
+  CCTV: (14, 12, 55m) 수직 하방, hfov 0.852 → 지면 32x50m 커버, 5cm/px
+  로봇: 0.8m 박스 2대, 휠베이스 2.5m (실물 차량 운반 스케일)
+
+  감지 원리: 바닥=무채색 어두움, 주차선=무채색 밝음(흰색), 장애물=유채색
+  → cctv_map_builder가 '채도' 기준으로 분할 (흰 선은 장애물로 안 잡힘)
+-->
+<sdf version="1.8">
+  <world name="deliverybot_parking">
+    <physics name="1ms" type="ignored">
+      <max_step_size>0.001</max_step_size>
+      <real_time_factor>1.0</real_time_factor>
+    </physics>
+    <plugin filename="gz-sim-physics-system" name="gz::sim::systems::Physics"/>
+    <plugin filename="gz-sim-user-commands-system" name="gz::sim::systems::UserCommands"/>
+    <plugin filename="gz-sim-scene-broadcaster-system" name="gz::sim::systems::SceneBroadcaster"/>
+    <plugin filename="gz-sim-sensors-system" name="gz::sim::systems::Sensors">
+      <render_engine>ogre2</render_engine>
+    </plugin>
+
+    <light type="directional" name="sun">
+      <cast_shadows>false</cast_shadows>
+      <pose>0 0 60 0 0 0</pose>
+      <diffuse>0.95 0.95 0.95 1</diffuse>
+      <direction>-0.2 0.2 -0.95</direction>
+    </light>
+
+    <!-- ===== 아스팔트 바닥 (어두운 무채색) ===== -->
+    <model name="ground">
+      <static>true</static>
+      <pose>14 12 0 0 0 0</pose>
+      <link name="link">
+        <collision name="col"><geometry><box><size>34 52 0.02</size></box></geometry></collision>
+        <visual name="vis"><geometry><box><size>34 52 0.02</size></box></geometry>
+          <material><ambient>0.20 0.20 0.21 1</ambient><diffuse>0.20 0.20 0.21 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <!-- ===== 주차선 (흰색, 무채색 → 맵에서 무시되어야 함: 파이프라인 시험용) ===== -->
+    <model name="lines"><static>true</static><pose>0 0 0.012 0 0 0</pose><link name="l">
+      <visual name="a"><pose>4 25 0 0 0 0</pose><geometry><box><size>0.12 5 0.002</size></box></geometry>
+        <material><ambient>0.9 0.9 0.9 1</ambient><diffuse>0.9 0.9 0.9 1</diffuse></material></visual>
+      <visual name="b"><pose>7 25 0 0 0 0</pose><geometry><box><size>0.12 5 0.002</size></box></geometry>
+        <material><ambient>0.9 0.9 0.9 1</ambient><diffuse>0.9 0.9 0.9 1</diffuse></material></visual>
+      <visual name="c"><pose>10 25 0 0 0 0</pose><geometry><box><size>0.12 5 0.002</size></box></geometry>
+        <material><ambient>0.9 0.9 0.9 1</ambient><diffuse>0.9 0.9 0.9 1</diffuse></material></visual>
+      <visual name="d"><pose>13 25 0 0 0 0</pose><geometry><box><size>0.12 5 0.002</size></box></geometry>
+        <material><ambient>0.9 0.9 0.9 1</ambient><diffuse>0.9 0.9 0.9 1</diffuse></material></visual>
+    </link></model>
+
+    <!-- ===== 차량 4대 (원본 좌표, 유채색 박스) ===== -->
+    <model name="prius_hybrid"><static>true</static><pose>5.58 9.31 0.75 0 0 -0.05</pose>
+      <link name="body"><collision name="c"><geometry><box><size>4.5 1.8 1.5</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>4.5 1.8 1.5</size></box></geometry>
+          <material><ambient>0.1 0.6 0.6 1</ambient><diffuse>0.1 0.6 0.6 1</diffuse></material></visual></link></model>
+
+    <model name="suv"><static>true</static><pose>20.36 8.91 0.9 0 0 -1.58</pose>
+      <link name="body"><collision name="c"><geometry><box><size>4.8 1.9 1.8</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>4.8 1.9 1.8</size></box></geometry>
+          <material><ambient>0.65 0.15 0.15 1</ambient><diffuse>0.65 0.15 0.15 1</diffuse></material></visual></link></model>
+
+    <model name="pickup"><static>true</static><pose>16.90 -8.63 0.9 0 0 1.58</pose>
+      <link name="body"><collision name="c"><geometry><box><size>5.2 1.9 1.8</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>5.2 1.9 1.8</size></box></geometry>
+          <material><ambient>0.15 0.3 0.75 1</ambient><diffuse>0.15 0.3 0.75 1</diffuse></material></visual></link></model>
+
+    <model name="hatchback_blue"><static>true</static><pose>20.34 33.03 0.75 0 0 -1.56</pose>
+      <link name="body"><collision name="c"><geometry><box><size>4.1 1.75 1.5</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>4.1 1.75 1.5</size></box></geometry>
+          <material><ambient>0.2 0.4 0.85 1</ambient><diffuse>0.2 0.4 0.85 1</diffuse></material></visual></link></model>
+
+    <!-- ===== 공사 콘 5개 (원본 좌표, 주황) ===== -->
+    <model name="cone_0"><static>true</static><pose>7.75 -9.15 0.25 0 0 0</pose>
+      <link name="l"><collision name="c"><geometry><cylinder><radius>0.18</radius><length>0.5</length></cylinder></geometry></collision>
+        <visual name="v"><geometry><cylinder><radius>0.18</radius><length>0.5</length></cylinder></geometry>
+          <material><ambient>0.95 0.45 0.05 1</ambient><diffuse>0.95 0.45 0.05 1</diffuse></material></visual></link></model>
+    <model name="cone_1"><static>true</static><pose>11.72 15.34 0.25 0 0 0</pose>
+      <link name="l"><collision name="c"><geometry><cylinder><radius>0.18</radius><length>0.5</length></cylinder></geometry></collision>
+        <visual name="v"><geometry><cylinder><radius>0.18</radius><length>0.5</length></cylinder></geometry>
+          <material><ambient>0.95 0.45 0.05 1</ambient><diffuse>0.95 0.45 0.05 1</diffuse></material></visual></link></model>
+    <model name="cone_2"><static>true</static><pose>23.16 8.41 0.25 0 0 0</pose>
+      <link name="l"><collision name="c"><geometry><cylinder><radius>0.18</radius><length>0.5</length></cylinder></geometry></collision>
+        <visual name="v"><geometry><cylinder><radius>0.18</radius><length>0.5</length></cylinder></geometry>
+          <material><ambient>0.95 0.45 0.05 1</ambient><diffuse>0.95 0.45 0.05 1</diffuse></material></visual></link></model>
+    <model name="cone_3"><static>true</static><pose>8.63 32.98 0.25 0 0 0</pose>
+      <link name="l"><collision name="c"><geometry><cylinder><radius>0.18</radius><length>0.5</length></cylinder></geometry></collision>
+        <visual name="v"><geometry><cylinder><radius>0.18</radius><length>0.5</length></cylinder></geometry>
+          <material><ambient>0.95 0.45 0.05 1</ambient><diffuse>0.95 0.45 0.05 1</diffuse></material></visual></link></model>
+    <model name="cone_4"><static>true</static><pose>14.66 33.04 0.25 0 0 0</pose>
+      <link name="l"><collision name="c"><geometry><cylinder><radius>0.18</radius><length>0.5</length></cylinder></geometry></collision>
+        <visual name="v"><geometry><cylinder><radius>0.18</radius><length>0.5</length></cylinder></geometry>
+          <material><ambient>0.95 0.45 0.05 1</ambient><diffuse>0.95 0.45 0.05 1</diffuse></material></visual></link></model>
+
+    <!-- ===== CCTV (수직 하방 카메라, 5Hz) ===== -->
+    <model name="cctv">
+      <static>true</static>
+      <pose>14 12 55 0 1.5708 0</pose>
+      <link name="link">
+        <visual name="vis"><geometry><box><size>0.5 0.5 0.3</size></box></geometry>
+          <material><ambient>0.1 0.1 0.1 1</ambient><diffuse>0.1 0.1 0.1 1</diffuse></material></visual>
+        <sensor name="cctv_cam" type="camera">
+          <topic>/cctv/image_raw</topic>
+          <update_rate>5</update_rate>
+          <camera>
+            <horizontal_fov>0.852</horizontal_fov>
+            <image><width>1000</width><height>640</height><format>R8G8B8</format></image>
+            <clip><near>1.0</near><far>200</far></clip>
+          </camera>
+          <always_on>true</always_on>
+        </sensor>
+      </link>
+    </model>
+
+    <!-- ===== Front 로봇 (0.8m, 주황) — 초기 (3.25, -5) ===== -->
+    <model name="front_robot">
+      <pose>3.25 -5.0 0.15 0 0 0</pose>
+      <link name="base_link">
+        <inertial><mass>40</mass>
+          <inertia><ixx>2.0</ixx><iyy>2.0</iyy><izz>3.0</izz><ixy>0</ixy><ixz>0</ixz><iyz>0</iyz></inertia></inertial>
+        <collision name="col"><geometry><box><size>0.8 0.8 0.3</size></box></geometry></collision>
+        <visual name="vis"><geometry><box><size>0.8 0.8 0.3</size></box></geometry>
+          <material><ambient>0.95 0.55 0.05 1</ambient><diffuse>0.95 0.55 0.05 1</diffuse></material></visual>
+        <visual name="mark"><pose>0.3 0 0.18 0 0 0</pose><geometry><box><size>0.15 0.15 0.06</size></box></geometry>
+          <material><ambient>0 0 0 1</ambient><diffuse>0 0 0 1</diffuse></material></visual>
+      </link>
+      <plugin filename="gz-sim-velocity-control-system" name="gz::sim::systems::VelocityControl">
+        <topic>/model/front_robot/cmd_vel</topic>
+      </plugin>
+      <plugin filename="gz-sim-odometry-publisher-system" name="gz::sim::systems::OdometryPublisher">
+        <odom_frame>front_robot/odom</odom_frame>
+        <robot_base_frame>front_robot/base_link</robot_base_frame>
+        <odom_topic>/model/front_robot/odometry</odom_topic>
+        <odom_publish_frequency>50</odom_publish_frequency>
+      </plugin>
+    </model>
+
+    <!-- ===== Rear 로봇 (0.8m, 하늘색) — 초기 (0.75, -5), 휠베이스 2.5m ===== -->
+    <model name="rear_robot">
+      <pose>0.75 -5.0 0.15 0 0 0</pose>
+      <link name="base_link">
+        <inertial><mass>40</mass>
+          <inertia><ixx>2.0</ixx><iyy>2.0</iyy><izz>3.0</izz><ixy>0</ixy><ixz>0</ixz><iyz>0</iyz></inertia></inertial>
+        <collision name="col"><geometry><box><size>0.8 0.8 0.3</size></box></geometry></collision>
+        <visual name="vis"><geometry><box><size>0.8 0.8 0.3</size></box></geometry>
+          <material><ambient>0.1 0.6 0.95 1</ambient><diffuse>0.1 0.6 0.95 1</diffuse></material></visual>
+        <visual name="mark"><pose>0.3 0 0.18 0 0 0</pose><geometry><box><size>0.15 0.15 0.06</size></box></geometry>
+          <material><ambient>0 0 0 1</ambient><diffuse>0 0 0 1</diffuse></material></visual>
+      </link>
+      <plugin filename="gz-sim-velocity-control-system" name="gz::sim::systems::VelocityControl">
+        <topic>/model/rear_robot/cmd_vel</topic>
+      </plugin>
+      <plugin filename="gz-sim-odometry-publisher-system" name="gz::sim::systems::OdometryPublisher">
+        <odom_frame>rear_robot/odom</odom_frame>
+        <robot_base_frame>rear_robot/base_link</robot_base_frame>
+        <odom_topic>/model/rear_robot/odometry</odom_topic>
+        <odom_publish_frequency>50</odom_publish_frequency>
+      </plugin>
+    </model>
+
+  </world>
+</sdf>

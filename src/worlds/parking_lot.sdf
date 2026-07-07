@@ -1,0 +1,296 @@
+<?xml version="1.0" ?>
+<!--
+  parking_lot.sdf — 제어 + CCTV 맵 생성 검증용 주차장 월드
+  Gazebo Harmonic / ROS2 Jazzy 기준
+
+  좌표계:
+  - x: 0 ~ 6m
+  - y: 0 ~ 4m
+  - 주차장 중심: (3, 2)
+
+  주요 요소:
+  - 대기공간: (0.62, 0.6)
+  - 주차 슬롯: y=3.4 라인에 4칸
+  - 기둥: (3.0, 2.0), (4.2, 1.2)
+  - 천장 CCTV: (3, 2, 6.0), 아래 방향
+  - front_robot: (0.75, 0.60)
+  - rear_robot:  (0.50, 0.60)
+  - 초기 Front-Rear 거리: 0.25m
+
+  1단계:
+  - VelocityControl 기반 holonomic box robot
+  - 메카넘 휠 물리 생략
+  - rigid_body_sync 제어 검증
+
+  2단계:
+  - overhead_cctv /cctv/image 사용
+  - cctv_map_builder가 이미지 기반 /parking/map 생성
+-->
+
+<sdf version="1.8">
+  <world name="parking_lot">
+
+    <!-- ===== Physics / Core Systems ===== -->
+    <physics name="1ms" type="ignored">
+      <max_step_size>0.001</max_step_size>
+      <real_time_factor>1.0</real_time_factor>
+    </physics>
+
+    <plugin filename="gz-sim-physics-system"
+            name="gz::sim::systems::Physics"/>
+
+    <plugin filename="gz-sim-user-commands-system"
+            name="gz::sim::systems::UserCommands"/>
+
+    <plugin filename="gz-sim-scene-broadcaster-system"
+            name="gz::sim::systems::SceneBroadcaster"/>
+
+    <!-- Camera sensor를 쓰려면 Sensors system이 필요함 -->
+    <plugin filename="gz-sim-sensors-system"
+            name="gz::sim::systems::Sensors">
+      <render_engine>ogre2</render_engine>
+    </plugin>
+
+    <!-- ===== Light ===== -->
+    <light type="directional" name="sun">
+      <cast_shadows>false</cast_shadows>
+      <pose>0 0 10 0 0 0</pose>
+      <diffuse>0.9 0.9 0.9 1</diffuse>
+      <specular>0.2 0.2 0.2 1</specular>
+      <direction>-0.3 0.3 -0.9</direction>
+    </light>
+
+    <!-- ===== Overhead CCTV Camera ===== -->
+    <model name="overhead_cctv">
+      <static>true</static>
+      <pose>3 2 4.0 0 1.5708 0</pose>
+
+      <link name="camera_link">
+        <visual name="camera_body">
+          <geometry>
+            <box><size>0.15 0.15 0.08</size></box>
+          </geometry>
+          <material>
+            <ambient>0.05 0.05 0.05 1</ambient>
+            <diffuse>0.05 0.05 0.05 1</diffuse>
+          </material>
+        </visual>
+
+        <sensor name="cctv_camera" type="camera">
+          <always_on>true</always_on>
+          <update_rate>15</update_rate>
+          <topic>/cctv/image</topic>
+
+          <camera>
+            <horizontal_fov>1.5708</horizontal_fov>
+            <image>
+              <width>640</width>
+              <height>480</height>
+              <format>R8G8B8</format>
+            </image>
+            <clip>
+              <near>0.1</near>
+              <far>20.0</far>
+            </clip>
+          </camera>
+        </sensor>
+      </link>
+    </model>
+
+    <!-- ===== Ground ===== -->
+    <model name="ground">
+      <static>true</static>
+      <pose>3 2 0 0 0 0</pose>
+      <link name="link">
+        <collision name="col">
+          <geometry>
+            <box><size>6.4 4.4 0.02</size></box>
+          </geometry>
+        </collision>
+        <visual name="vis">
+          <geometry>
+            <box><size>6.4 4.4 0.02</size></box>
+          </geometry>
+          <material>
+            <ambient>0.35 0.35 0.38 1</ambient>
+            <diffuse>0.35 0.35 0.38 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- ===== Pillar 1 ===== -->
+    <model name="pillar_1">
+      <static>true</static>
+      <pose>3.0 2.0 0.25 0 0 0</pose>
+      <link name="link">
+        <collision name="col">
+          <geometry><cylinder><radius>0.08</radius><length>0.5</length></cylinder></geometry>
+        </collision>
+        <visual name="vis">
+          <geometry><cylinder><radius>0.08</radius><length>0.5</length></cylinder></geometry>
+          <material>
+            <ambient>0.7 0.6 0.4 1</ambient>
+            <diffuse>0.7 0.6 0.4 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- ===== Pillar 2 ===== -->
+    <model name="pillar_2">
+      <static>true</static>
+      <pose>4.2 1.2 0.25 0 0 0</pose>
+      <link name="link">
+        <collision name="col">
+          <geometry><cylinder><radius>0.08</radius><length>0.5</length></cylinder></geometry>
+        </collision>
+        <visual name="vis">
+          <geometry><cylinder><radius>0.08</radius><length>0.5</length></cylinder></geometry>
+          <material>
+            <ambient>0.7 0.6 0.4 1</ambient>
+            <diffuse>0.7 0.6 0.4 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- ===== Waiting Zone ===== -->
+    <model name="waiting_zone">
+      <static>true</static>
+      <pose>0.62 0.6 0.011 0 0 0</pose>
+      <link name="link">
+        <visual name="vis">
+          <geometry><box><size>0.9 0.6 0.002</size></box></geometry>
+          <material>
+            <ambient>0.2 0.4 0.9 1</ambient>
+            <diffuse>0.2 0.4 0.9 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- ===== Parking Slots ===== -->
+    <model name="slot_1">
+      <static>true</static>
+      <pose>1.5 3.4 0.011 0 0 0</pose>
+      <link name="link">
+        <visual name="vis">
+          <geometry><box><size>0.55 0.35 0.002</size></box></geometry>
+          <material><ambient>0.2 0.8 0.3 1</ambient><diffuse>0.2 0.8 0.3 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="slot_2">
+      <static>true</static>
+      <pose>2.5 3.4 0.011 0 0 0</pose>
+      <link name="link">
+        <visual name="vis">
+          <geometry><box><size>0.55 0.35 0.002</size></box></geometry>
+          <material><ambient>0.2 0.8 0.3 1</ambient><diffuse>0.2 0.8 0.3 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="slot_3">
+      <static>true</static>
+      <pose>3.5 3.4 0.011 0 0 0</pose>
+      <link name="link">
+        <visual name="vis">
+          <geometry><box><size>0.55 0.35 0.002</size></box></geometry>
+          <material><ambient>0.2 0.8 0.3 1</ambient><diffuse>0.2 0.8 0.3 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="slot_4">
+      <static>true</static>
+      <pose>4.5 3.4 0.011 0 0 0</pose>
+      <link name="link">
+        <visual name="vis">
+          <geometry><box><size>0.55 0.35 0.002</size></box></geometry>
+          <material><ambient>0.2 0.8 0.3 1</ambient><diffuse>0.2 0.8 0.3 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- ===== Target Vehicle ===== -->
+    <model name="target_vehicle">
+      <static>true</static>
+      <pose>5.4 0.6 0.10 0 0 0</pose>
+      <link name="body">
+        <collision name="col">
+          <geometry><box><size>0.45 0.20 0.12</size></box></geometry>
+        </collision>
+        <visual name="vis">
+          <geometry><box><size>0.45 0.20 0.12</size></box></geometry>
+          <material><ambient>0.8 0.15 0.15 1</ambient><diffuse>0.8 0.15 0.15 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- ===== Front Robot ===== -->
+    <model name="front_robot">
+      <pose>0.75 0.60 0.05 0 0 0</pose>
+      <link name="base_link">
+        <inertial>
+          <mass>2.0</mass>
+          <inertia><ixx>0.01</ixx><iyy>0.01</iyy><izz>0.015</izz><ixy>0</ixy><ixz>0</ixz><iyz>0</iyz></inertia>
+        </inertial>
+        <collision name="col"><geometry><box><size>0.20 0.20 0.08</size></box></geometry></collision>
+        <visual name="vis">
+          <geometry><box><size>0.20 0.20 0.08</size></box></geometry>
+          <material><ambient>0.9 0.6 0.1 1</ambient><diffuse>0.9 0.6 0.1 1</diffuse></material>
+        </visual>
+        <visual name="heading_mark">
+          <pose>0.08 0 0.05 0 0 0</pose>
+          <geometry><box><size>0.04 0.04 0.02</size></box></geometry>
+          <material><ambient>0 0 0 1</ambient><diffuse>0 0 0 1</diffuse></material>
+        </visual>
+      </link>
+
+      <plugin filename="gz-sim-velocity-control-system" name="gz::sim::systems::VelocityControl">
+        <topic>/model/front_robot/cmd_vel</topic>
+      </plugin>
+      <plugin filename="gz-sim-odometry-publisher-system" name="gz::sim::systems::OdometryPublisher">
+        <odom_frame>front_robot/odom</odom_frame>
+        <robot_base_frame>front_robot/base_link</robot_base_frame>
+        <odom_topic>/model/front_robot/odometry</odom_topic>
+        <odom_publish_frequency>50</odom_publish_frequency>
+      </plugin>
+    </model>
+
+    <!-- ===== Rear Robot ===== -->
+    <model name="rear_robot">
+      <pose>0.50 0.60 0.05 0 0 0</pose>
+      <link name="base_link">
+        <inertial>
+          <mass>2.0</mass>
+          <inertia><ixx>0.01</ixx><iyy>0.01</iyy><izz>0.015</izz><ixy>0</ixy><ixz>0</ixz><iyz>0</iyz></inertia>
+        </inertial>
+        <collision name="col"><geometry><box><size>0.20 0.20 0.08</size></box></geometry></collision>
+        <visual name="vis">
+          <geometry><box><size>0.20 0.20 0.08</size></box></geometry>
+          <material><ambient>0.1 0.5 0.9 1</ambient><diffuse>0.1 0.5 0.9 1</diffuse></material>
+        </visual>
+        <visual name="heading_mark">
+          <pose>0.08 0 0.05 0 0 0</pose>
+          <geometry><box><size>0.04 0.04 0.02</size></box></geometry>
+          <material><ambient>0 0 0 1</ambient><diffuse>0 0 0 1</diffuse></material>
+        </visual>
+      </link>
+
+      <plugin filename="gz-sim-velocity-control-system" name="gz::sim::systems::VelocityControl">
+        <topic>/model/rear_robot/cmd_vel</topic>
+      </plugin>
+      <plugin filename="gz-sim-odometry-publisher-system" name="gz::sim::systems::OdometryPublisher">
+        <odom_frame>rear_robot/odom</odom_frame>
+        <robot_base_frame>rear_robot/base_link</robot_base_frame>
+        <odom_topic>/model/rear_robot/odometry</odom_topic>
+        <odom_publish_frequency>50</odom_publish_frequency>
+      </plugin>
+    </model>
+
+  </world>
+</sdf>

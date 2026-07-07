@@ -1,0 +1,34 @@
+running develop
+running egg_info
+creating parking_gz_sim.egg-info
+writing parking_gz_sim.egg-info/PKG-INFO
+writing dependency_links to parking_gz_sim.egg-info/dependency_links.txt
+writing entry points to parking_gz_sim.egg-info/entry_points.txt
+writing requirements to parking_gz_sim.egg-info/requires.txt
+writing top-level names to parking_gz_sim.egg-info/top_level.txt
+writing manifest file 'parking_gz_sim.egg-info/SOURCES.txt'
+reading manifest file 'parking_gz_sim.egg-info/SOURCES.txt'
+writing manifest file 'parking_gz_sim.egg-info/SOURCES.txt'
+running build_ext
+Creating /home/shiha/gz_ws/install/parking_gz_sim/lib/python3.12/site-packages/parking-gz-sim.egg-link (link to .)
+Installing cctv_map_builder script to /home/shiha/gz_ws/install/parking_gz_sim/lib/parking_gz_sim
+Installing map_astar_planner script to /home/shiha/gz_ws/install/parking_gz_sim/lib/parking_gz_sim
+Installing sim_rigid_body_sync script to /home/shiha/gz_ws/install/parking_gz_sim/lib/parking_gz_sim
+Installing waypoint_publisher script to /home/shiha/gz_ws/install/parking_gz_sim/lib/parking_gz_sim
+
+Installed /home/shiha/gz_ws/build/parking_gz_sim
+running symlink_data
+creating /home/shiha/gz_ws/install/parking_gz_sim/share/ament_index
+creating /home/shiha/gz_ws/install/parking_gz_sim/share/ament_index/resource_index
+creating /home/shiha/gz_ws/install/parking_gz_sim/share/ament_index/resource_index/packages
+symbolically linking /home/shiha/gz_ws/build/parking_gz_sim/resource/parking_gz_sim -> /home/shiha/gz_ws/install/parking_gz_sim/share/ament_index/resource_index/packages
+symbolically linking /home/shiha/gz_ws/build/parking_gz_sim/package.xml -> /home/shiha/gz_ws/install/parking_gz_sim/share/parking_gz_sim
+creating /home/shiha/gz_ws/install/parking_gz_sim/share/parking_gz_sim/launch
+symbolically linking /home/shiha/gz_ws/build/parking_gz_sim/launch/deliverybot.launch.py -> /home/shiha/gz_ws/install/parking_gz_sim/share/parking_gz_sim/launch
+symbolically linking /home/shiha/gz_ws/build/parking_gz_sim/launch/sim.launch.py -> /home/shiha/gz_ws/install/parking_gz_sim/share/parking_gz_sim/launch
+creating /home/shiha/gz_ws/install/parking_gz_sim/share/parking_gz_sim/worlds
+symbolically linking /home/shiha/gz_ws/build/parking_gz_sim/worlds/parking_lot.sdf -> /home/shiha/gz_ws/install/parking_gz_sim/share/parking_gz_sim/worlds
+symbolically linking /home/shiha/gz_ws/build/parking_gz_sim/worlds/deliverybot_parking.sdf -> /home/shiha/gz_ws/install/parking_gz_sim/share/parking_gz_sim/worlds
+creating /home/shiha/gz_ws/install/parking_gz_sim/share/parking_gz_sim/config
+symbolically linking /home/shiha/gz_ws/build/parking_gz_sim/config/bridge_deliverybot.yaml -> /home/shiha/gz_ws/install/parking_gz_sim/share/parking_gz_sim/config
+symbolically linking /home/shiha/gz_ws/build/parking_gz_sim/config/bridge.yaml -> /home/shiha/gz_ws/install/parking_gz_sim/share/parking_gz_sim/config

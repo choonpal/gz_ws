@@ -1,0 +1,18 @@
+running develop
+running egg_info
+writing parking_gz_sim.egg-info/PKG-INFO
+writing dependency_links to parking_gz_sim.egg-info/dependency_links.txt
+writing entry points to parking_gz_sim.egg-info/entry_points.txt
+writing requirements to parking_gz_sim.egg-info/requires.txt
+writing top-level names to parking_gz_sim.egg-info/top_level.txt
+reading manifest file 'parking_gz_sim.egg-info/SOURCES.txt'
+writing manifest file 'parking_gz_sim.egg-info/SOURCES.txt'
+running build_ext
+Creating /home/shiha/gz_ws/install/parking_gz_sim/lib/python3.12/site-packages/parking-gz-sim.egg-link (link to .)
+Installing cctv_map_builder script to /home/shiha/gz_ws/install/parking_gz_sim/lib/parking_gz_sim
+Installing map_astar_planner script to /home/shiha/gz_ws/install/parking_gz_sim/lib/parking_gz_sim
+Installing sim_rigid_body_sync script to /home/shiha/gz_ws/install/parking_gz_sim/lib/parking_gz_sim
+Installing waypoint_publisher script to /home/shiha/gz_ws/install/parking_gz_sim/lib/parking_gz_sim
+
+Installed /home/shiha/gz_ws/build/parking_gz_sim
+running symlink_data

@@ -1,0 +1,5 @@
+[console_scripts]
+cctv_map_builder = parking_gz_sim.cctv_map_builder:main
+map_astar_planner = parking_gz_sim.map_astar_planner:main
+sim_rigid_body_sync = parking_gz_sim.sim_rigid_body_sync:main
+waypoint_publisher = parking_gz_sim.waypoint_publisher:main

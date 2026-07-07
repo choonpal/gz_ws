@@ -1,0 +1,5 @@
+Metadata-Version: 2.1
+Name: parking-gz-sim
+Version: 0.1.0
+Summary: 협동 주차로봇 제어부 가제보 검증
+License: MIT

@@ -1,0 +1,9 @@
+source;share/parking_gz_sim/hook/pythonpath.ps1
+source;share/parking_gz_sim/hook/pythonpath.dsv
+source;share/parking_gz_sim/hook/pythonpath.sh
+source;share/parking_gz_sim/hook/ament_prefix_path.ps1
+source;share/parking_gz_sim/hook/ament_prefix_path.dsv
+source;share/parking_gz_sim/hook/ament_prefix_path.sh
+source;../../build/parking_gz_sim/share/parking_gz_sim/hook/pythonpath_develop.ps1
+source;../../build/parking_gz_sim/share/parking_gz_sim/hook/pythonpath_develop.dsv
+source;../../build/parking_gz_sim/share/parking_gz_sim/hook/pythonpath_develop.sh
