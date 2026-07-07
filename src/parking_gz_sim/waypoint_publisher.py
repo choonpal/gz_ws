@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 waypoint_publisher.py — 가짜 fleet_manager (시뮬레이션 검증용)
-
+1단계용 토픽
 인지부(YOLO/CCTV) 없이 명세 7-2의 핵심만 수행:
   하드코딩된 맵(기둥 위치) 위에서 A* 경로 계산
   → /virtual_robot/waypoints (nav_msgs/Path) 발행

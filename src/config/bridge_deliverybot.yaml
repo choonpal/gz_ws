@@ -19,8 +19,8 @@
   ros_type_name: "nav_msgs/msg/Odometry"
   gz_type_name: "gz.msgs.Odometry"
   direction: GZ_TO_ROS
-- ros_topic_name: "/cctv/image_raw"
-  gz_topic_name: "/cctv/image_raw"
+- ros_topic_name: "/cctv/image"
+  gz_topic_name: "/cctv/image"
   ros_type_name: "sensor_msgs/msg/Image"
   gz_type_name: "gz.msgs.Image"
   direction: GZ_TO_ROS
@@ -29,3 +29,4 @@
   ros_type_name: "rosgraph_msgs/msg/Clock"
   gz_type_name: "gz.msgs.Clock"
   direction: GZ_TO_ROS
+  

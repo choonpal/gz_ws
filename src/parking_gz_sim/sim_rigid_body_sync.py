@@ -260,6 +260,7 @@ class SimRigidBodySync(Node):
         rx, ry, rth = self.rear
 
         # ---- 가상 강체 중심 ----
+        # description: front/rear pose를 평균내서 강체 중심 pose를 계산
         cx, cy = (fx + rx) / 2.0, (fy + ry) / 2.0
         dx_fr, dy_fr = fx - rx, fy - ry
         dist = math.hypot(dx_fr, dy_fr)
