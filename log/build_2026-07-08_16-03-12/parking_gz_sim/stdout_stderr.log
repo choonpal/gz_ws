@@ -1,0 +1,50 @@
+running develop
+Removing /home/shiha/gz_ws/install/parking_gz_sim/lib/python3.12/site-packages/parking-gz-sim.egg-link (link to .)
+running egg_info
+writing ../build/parking_gz_sim/parking_gz_sim.egg-info/PKG-INFO
+writing dependency_links to ../build/parking_gz_sim/parking_gz_sim.egg-info/dependency_links.txt
+writing entry points to ../build/parking_gz_sim/parking_gz_sim.egg-info/entry_points.txt
+writing requirements to ../build/parking_gz_sim/parking_gz_sim.egg-info/requires.txt
+writing top-level names to ../build/parking_gz_sim/parking_gz_sim.egg-info/top_level.txt
+reading manifest file '../build/parking_gz_sim/parking_gz_sim.egg-info/SOURCES.txt'
+writing manifest file '../build/parking_gz_sim/parking_gz_sim.egg-info/SOURCES.txt'
+running build
+running build_py
+creating /home/shiha/gz_ws/build/parking_gz_sim/build
+creating /home/shiha/gz_ws/build/parking_gz_sim/build/lib
+creating /home/shiha/gz_ws/build/parking_gz_sim/build/lib/parking_gz_sim
+copying parking_gz_sim/cctv_map_builder.py -> /home/shiha/gz_ws/build/parking_gz_sim/build/lib/parking_gz_sim
+copying parking_gz_sim/sim_rigid_body_sync.py -> /home/shiha/gz_ws/build/parking_gz_sim/build/lib/parking_gz_sim
+copying parking_gz_sim/waypoint_publisher.py -> /home/shiha/gz_ws/build/parking_gz_sim/build/lib/parking_gz_sim
+copying parking_gz_sim/__init__.py -> /home/shiha/gz_ws/build/parking_gz_sim/build/lib/parking_gz_sim
+copying parking_gz_sim/map_astar_planner.py -> /home/shiha/gz_ws/build/parking_gz_sim/build/lib/parking_gz_sim
+running install
+running install_lib
+creating /home/shiha/gz_ws/install/parking_gz_sim/lib/python3.12/site-packages/parking_gz_sim
+copying /home/shiha/gz_ws/build/parking_gz_sim/build/lib/parking_gz_sim/cctv_map_builder.py -> /home/shiha/gz_ws/install/parking_gz_sim/lib/python3.12/site-packages/parking_gz_sim
+copying /home/shiha/gz_ws/build/parking_gz_sim/build/lib/parking_gz_sim/sim_rigid_body_sync.py -> /home/shiha/gz_ws/install/parking_gz_sim/lib/python3.12/site-packages/parking_gz_sim
+copying /home/shiha/gz_ws/build/parking_gz_sim/build/lib/parking_gz_sim/waypoint_publisher.py -> /home/shiha/gz_ws/install/parking_gz_sim/lib/python3.12/site-packages/parking_gz_sim
+copying /home/shiha/gz_ws/build/parking_gz_sim/build/lib/parking_gz_sim/__init__.py -> /home/shiha/gz_ws/install/parking_gz_sim/lib/python3.12/site-packages/parking_gz_sim
+copying /home/shiha/gz_ws/build/parking_gz_sim/build/lib/parking_gz_sim/map_astar_planner.py -> /home/shiha/gz_ws/install/parking_gz_sim/lib/python3.12/site-packages/parking_gz_sim
+byte-compiling /home/shiha/gz_ws/install/parking_gz_sim/lib/python3.12/site-packages/parking_gz_sim/cctv_map_builder.py to cctv_map_builder.cpython-312.pyc
+byte-compiling /home/shiha/gz_ws/install/parking_gz_sim/lib/python3.12/site-packages/parking_gz_sim/sim_rigid_body_sync.py to sim_rigid_body_sync.cpython-312.pyc
+byte-compiling /home/shiha/gz_ws/install/parking_gz_sim/lib/python3.12/site-packages/parking_gz_sim/waypoint_publisher.py to waypoint_publisher.cpython-312.pyc
+byte-compiling /home/shiha/gz_ws/install/parking_gz_sim/lib/python3.12/site-packages/parking_gz_sim/__init__.py to __init__.cpython-312.pyc
+byte-compiling /home/shiha/gz_ws/install/parking_gz_sim/lib/python3.12/site-packages/parking_gz_sim/map_astar_planner.py to map_astar_planner.cpython-312.pyc
+running install_data
+copying resource/parking_gz_sim -> /home/shiha/gz_ws/install/parking_gz_sim/share/ament_index/resource_index/packages
+copying package.xml -> /home/shiha/gz_ws/install/parking_gz_sim/share/parking_gz_sim
+copying launch/deliverybot.launch.py -> /home/shiha/gz_ws/install/parking_gz_sim/share/parking_gz_sim/launch
+copying launch/sim.launch.py -> /home/shiha/gz_ws/install/parking_gz_sim/share/parking_gz_sim/launch
+copying worlds/parking_lot.sdf -> /home/shiha/gz_ws/install/parking_gz_sim/share/parking_gz_sim/worlds
+copying worlds/deliverybot_parking.sdf -> /home/shiha/gz_ws/install/parking_gz_sim/share/parking_gz_sim/worlds
+copying config/bridge_deliverybot.yaml -> /home/shiha/gz_ws/install/parking_gz_sim/share/parking_gz_sim/config
+copying config/bridge.yaml -> /home/shiha/gz_ws/install/parking_gz_sim/share/parking_gz_sim/config
+running install_egg_info
+Copying ../build/parking_gz_sim/parking_gz_sim.egg-info to /home/shiha/gz_ws/install/parking_gz_sim/lib/python3.12/site-packages/parking_gz_sim-0.1.0-py3.12.egg-info
+running install_scripts
+Installing cctv_map_builder script to /home/shiha/gz_ws/install/parking_gz_sim/lib/parking_gz_sim
+Installing map_astar_planner script to /home/shiha/gz_ws/install/parking_gz_sim/lib/parking_gz_sim
+Installing sim_rigid_body_sync script to /home/shiha/gz_ws/install/parking_gz_sim/lib/parking_gz_sim
+Installing waypoint_publisher script to /home/shiha/gz_ws/install/parking_gz_sim/lib/parking_gz_sim
+writing list of installed files to '/home/shiha/gz_ws/build/parking_gz_sim/install.log'

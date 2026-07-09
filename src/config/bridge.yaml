@@ -38,3 +38,90 @@
   ros_type_name: "sensor_msgs/msg/Image"
   gz_type_name: "gz.msgs.Image"
   direction: GZ_TO_ROS
+
+# ===== 초음파 (HC-SR04 대역 — LaserScan이지만 min 하나만 사용) =====
+- ros_topic_name: "/front/us_left"
+  gz_topic_name: "/front/us_left"
+  ros_type_name: "sensor_msgs/msg/LaserScan"
+  gz_type_name: "gz.msgs.LaserScan"
+  direction: GZ_TO_ROS
+
+- ros_topic_name: "/front/us_right"
+  gz_topic_name: "/front/us_right"
+  ros_type_name: "sensor_msgs/msg/LaserScan"
+  gz_type_name: "gz.msgs.LaserScan"
+  direction: GZ_TO_ROS
+
+- ros_topic_name: "/rear/us_left"
+  gz_topic_name: "/rear/us_left"
+  ros_type_name: "sensor_msgs/msg/LaserScan"
+  gz_type_name: "gz.msgs.LaserScan"
+  direction: GZ_TO_ROS
+
+- ros_topic_name: "/rear/us_right"
+  gz_topic_name: "/rear/us_right"
+  ros_type_name: "sensor_msgs/msg/LaserScan"
+  gz_type_name: "gz.msgs.LaserScan"
+  direction: GZ_TO_ROS
+
+# ===== 그리퍼 조인트 명령 (0=접힘 180°, 1.5708=전개 90°) =====
+- ros_topic_name: "/front/grip_left_cmd"
+  gz_topic_name: "/front/grip_left_cmd"
+  ros_type_name: "std_msgs/msg/Float64"
+  gz_type_name: "gz.msgs.Double"
+  direction: ROS_TO_GZ
+
+- ros_topic_name: "/front/grip_right_cmd"
+  gz_topic_name: "/front/grip_right_cmd"
+  ros_type_name: "std_msgs/msg/Float64"
+  gz_type_name: "gz.msgs.Double"
+  direction: ROS_TO_GZ
+
+- ros_topic_name: "/rear/grip_left_cmd"
+  gz_topic_name: "/rear/grip_left_cmd"
+  ros_type_name: "std_msgs/msg/Float64"
+  gz_type_name: "gz.msgs.Double"
+  direction: ROS_TO_GZ
+
+- ros_topic_name: "/rear/grip_right_cmd"
+  gz_topic_name: "/rear/grip_right_cmd"
+  ros_type_name: "std_msgs/msg/Float64"
+  gz_type_name: "gz.msgs.Double"
+  direction: ROS_TO_GZ
+
+# ===== 차량 결합 (DetachableJoint attach/detach) =====
+- ros_topic_name: "/front/vehicle_attach"
+  gz_topic_name: "/front/vehicle_attach"
+  ros_type_name: "std_msgs/msg/Empty"
+  gz_type_name: "gz.msgs.Empty"
+  direction: ROS_TO_GZ
+
+- ros_topic_name: "/front/vehicle_detach"
+  gz_topic_name: "/front/vehicle_detach"
+  ros_type_name: "std_msgs/msg/Empty"
+  gz_type_name: "gz.msgs.Empty"
+  direction: ROS_TO_GZ
+
+- ros_topic_name: "/rear/vehicle_attach"
+  gz_topic_name: "/rear/vehicle_attach"
+  ros_type_name: "std_msgs/msg/Empty"
+  gz_type_name: "gz.msgs.Empty"
+  direction: ROS_TO_GZ
+
+- ros_topic_name: "/rear/vehicle_detach"
+  gz_topic_name: "/rear/vehicle_detach"
+  ros_type_name: "std_msgs/msg/Empty"
+  gz_type_name: "gz.msgs.Empty"
+  direction: ROS_TO_GZ
+
+- ros_topic_name: "/front/vehicle_attached"
+  gz_topic_name: "/front/vehicle_attached"
+  ros_type_name: "std_msgs/msg/String"
+  gz_type_name: "gz.msgs.StringMsg"
+  direction: GZ_TO_ROS
+
+- ros_topic_name: "/rear/vehicle_attached"
+  gz_topic_name: "/rear/vehicle_attached"
+  ros_type_name: "std_msgs/msg/String"
+  gz_type_name: "gz.msgs.StringMsg"
+  direction: GZ_TO_ROS

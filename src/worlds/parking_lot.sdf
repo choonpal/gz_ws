@@ -13,8 +13,8 @@
   - 주차 슬롯: y=3.4 라인에 4칸
   - 기둥: (3.0, 2.0), (4.2, 1.2)
   - 천장 CCTV: (3, 2, 6.0), 아래 방향
-  - front_robot: (0.75, 0.60)
-  - rear_robot:  (0.50, 0.60)
+  - front_robot: (5.50, 0.60) — 대기공간 반대편에서 출발
+  - rear_robot:  (5.25, 0.60)
   - 초기 Front-Rear 거리: 0.25m
 
   1단계:
@@ -96,7 +96,97 @@
         </sensor>
       </link>
     </model>
+    <!-- ===== Target Vehicle (대기공간 정차 차량) ===== -->
+    <!-- 바퀴 4개로 서 있는 non-static 차량.
+         치수: 차체 0.45x0.34x0.05 (바닥 z=0.13), 바퀴 r=0.05 w=0.03,
+               축간거리 0.25 (로봇 쌍 wheelbase와 동일), 윤거 0.34
+         로봇(폭 0.20 + 접힌 그리퍼)이 좌우 바퀴 사이(안쪽면 간격 0.31)로
+         들어가 초음파로 바퀴를 찾고 그리퍼로 잡은 뒤 DetachableJoint로 결합.
+         바퀴 마찰은 0.05로 낮춤 — 리프트 후 바퀴가 뜬 상태의 시뮬 대역
+         (물리적 들어올림 없이 welds로 운반하므로 끌림 저항 제거). -->
+    <model name="target_vehicle">
+      <pose>0.625 0.6 0.002 0 0 0</pose>
+      <link name="body">
+        <inertial>
+          <mass>1.5</mass>
+          <inertia>
+            <ixx>0.0153</ixx><iyy>0.0294</iyy><izz>0.0366</izz>
+            <ixy>0</ixy><ixz>0</ixz><iyz>0</iyz>
+          </inertia>
+        </inertial>
 
+        <!-- 차체 (빨강 — CCTV 차량 클래스 판별 기준) -->
+        <visual name="body_visual">
+          <pose>0 0 0.155 0 0 0</pose>
+          <geometry><box><size>0.45 0.34 0.05</size></box></geometry>
+          <material>
+            <ambient>0.8 0.05 0.05 1</ambient>
+            <diffuse>0.9 0.05 0.05 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <collision name="body_collision">
+          <pose>0 0 0.155 0 0 0</pose>
+          <geometry><box><size>0.45 0.34 0.05</size></box></geometry>
+        </collision>
+
+        <!-- 바퀴 4개 (검정 — 채도 낮아 CCTV 장애물 분할에 안 잡힘) -->
+        <visual name="wheel_fl_vis">
+          <pose>0.125 0.17 0.05 1.5708 0 0</pose>
+          <geometry><cylinder><radius>0.05</radius><length>0.03</length></cylinder></geometry>
+          <material><ambient>0.08 0.08 0.08 1</ambient><diffuse>0.08 0.08 0.08 1</diffuse></material>
+        </visual>
+        <collision name="wheel_fl_col">
+          <pose>0.125 0.17 0.05 1.5708 0 0</pose>
+          <geometry><cylinder><radius>0.05</radius><length>0.03</length></cylinder></geometry>
+          <surface><friction><ode><mu>0.05</mu><mu2>0.05</mu2></ode></friction></surface>
+        </collision>
+        <visual name="wheel_fr_vis">
+          <pose>0.125 -0.17 0.05 1.5708 0 0</pose>
+          <geometry><cylinder><radius>0.05</radius><length>0.03</length></cylinder></geometry>
+          <material><ambient>0.08 0.08 0.08 1</ambient><diffuse>0.08 0.08 0.08 1</diffuse></material>
+        </visual>
+        <collision name="wheel_fr_col">
+          <pose>0.125 -0.17 0.05 1.5708 0 0</pose>
+          <geometry><cylinder><radius>0.05</radius><length>0.03</length></cylinder></geometry>
+          <surface><friction><ode><mu>0.05</mu><mu2>0.05</mu2></ode></friction></surface>
+        </collision>
+        <visual name="wheel_rl_vis">
+          <pose>-0.125 0.17 0.05 1.5708 0 0</pose>
+          <geometry><cylinder><radius>0.05</radius><length>0.03</length></cylinder></geometry>
+          <material><ambient>0.08 0.08 0.08 1</ambient><diffuse>0.08 0.08 0.08 1</diffuse></material>
+        </visual>
+        <collision name="wheel_rl_col">
+          <pose>-0.125 0.17 0.05 1.5708 0 0</pose>
+          <geometry><cylinder><radius>0.05</radius><length>0.03</length></cylinder></geometry>
+          <surface><friction><ode><mu>0.05</mu><mu2>0.05</mu2></ode></friction></surface>
+        </collision>
+        <visual name="wheel_rr_vis">
+          <pose>-0.125 -0.17 0.05 1.5708 0 0</pose>
+          <geometry><cylinder><radius>0.05</radius><length>0.03</length></cylinder></geometry>
+          <material><ambient>0.08 0.08 0.08 1</ambient><diffuse>0.08 0.08 0.08 1</diffuse></material>
+        </visual>
+        <collision name="wheel_rr_col">
+          <pose>-0.125 -0.17 0.05 1.5708 0 0</pose>
+          <geometry><cylinder><radius>0.05</radius><length>0.03</length></cylinder></geometry>
+          <surface><friction><ode><mu>0.05</mu><mu2>0.05</mu2></ode></friction></surface>
+        </collision>
+
+        <!-- 바퀴-차체 스트럿 (visual only) -->
+        <visual name="strut_fl"><pose>0.125 0.17 0.115 0 0 0</pose>
+          <geometry><box><size>0.03 0.02 0.03</size></box></geometry>
+          <material><ambient>0.3 0.3 0.3 1</ambient><diffuse>0.3 0.3 0.3 1</diffuse></material></visual>
+        <visual name="strut_fr"><pose>0.125 -0.17 0.115 0 0 0</pose>
+          <geometry><box><size>0.03 0.02 0.03</size></box></geometry>
+          <material><ambient>0.3 0.3 0.3 1</ambient><diffuse>0.3 0.3 0.3 1</diffuse></material></visual>
+        <visual name="strut_rl"><pose>-0.125 0.17 0.115 0 0 0</pose>
+          <geometry><box><size>0.03 0.02 0.03</size></box></geometry>
+          <material><ambient>0.3 0.3 0.3 1</ambient><diffuse>0.3 0.3 0.3 1</diffuse></material></visual>
+        <visual name="strut_rr"><pose>-0.125 -0.17 0.115 0 0 0</pose>
+          <geometry><box><size>0.03 0.02 0.03</size></box></geometry>
+          <material><ambient>0.3 0.3 0.3 1</ambient><diffuse>0.3 0.3 0.3 1</diffuse></material></visual>
+      </link>
+    </model>
     <!-- ===== Ground ===== -->
     <model name="ground">
       <static>true</static>
@@ -215,24 +305,9 @@
       </link>
     </model>
 
-    <!-- ===== Target Vehicle ===== -->
-    <model name="target_vehicle">
-      <static>true</static>
-      <pose>5.4 0.6 0.10 0 0 0</pose>
-      <link name="body">
-        <collision name="col">
-          <geometry><box><size>0.45 0.20 0.12</size></box></geometry>
-        </collision>
-        <visual name="vis">
-          <geometry><box><size>0.45 0.20 0.12</size></box></geometry>
-          <material><ambient>0.8 0.15 0.15 1</ambient><diffuse>0.8 0.15 0.15 1</diffuse></material>
-        </visual>
-      </link>
-    </model>
-
     <!-- ===== Front Robot ===== -->
     <model name="front_robot">
-      <pose>0.75 0.60 0.05 0 0 0</pose>
+      <pose>5.50 0.60 0.05 0 0 0</pose>
       <link name="base_link">
         <inertial>
           <mass>2.0</mass>
@@ -248,7 +323,118 @@
           <geometry><box><size>0.04 0.04 0.02</size></box></geometry>
           <material><ambient>0 0 0 1</ambient><diffuse>0 0 0 1</diffuse></material>
         </visual>
+
+        <!-- 초음파 (HC-SR04 대역): 좌/우 측면, 바퀴 중심 높이(z=0.05).
+             gpu_lidar지만 5-ray 15° 원뿔의 min 하나만 단일 거리값으로
+             사용한다 — 각도분해능 없음, 실제 초음파와 동일 정보량. -->
+        <sensor name="us_left" type="gpu_lidar">
+          <pose>0 0.10 0 0 0 1.5708</pose>
+          <topic>/front/us_left</topic>
+          <update_rate>20</update_rate>
+          <lidar>
+            <scan>
+              <horizontal>
+                <samples>5</samples><resolution>1</resolution>
+                <min_angle>-0.131</min_angle><max_angle>0.131</max_angle>
+              </horizontal>
+              <vertical><samples>1</samples><min_angle>0</min_angle><max_angle>0</max_angle></vertical>
+            </scan>
+            <range><min>0.02</min><max>2.0</max><resolution>0.003</resolution></range>
+            <noise><type>gaussian</type><mean>0.0</mean><stddev>0.003</stddev></noise>
+          </lidar>
+        </sensor>
+        <sensor name="us_right" type="gpu_lidar">
+          <pose>0 -0.10 0 0 0 -1.5708</pose>
+          <topic>/front/us_right</topic>
+          <update_rate>20</update_rate>
+          <lidar>
+            <scan>
+              <horizontal>
+                <samples>5</samples><resolution>1</resolution>
+                <min_angle>-0.131</min_angle><max_angle>0.131</max_angle>
+              </horizontal>
+              <vertical><samples>1</samples><min_angle>0</min_angle><max_angle>0</max_angle></vertical>
+            </scan>
+            <range><min>0.02</min><max>2.0</max><resolution>0.003</resolution></range>
+            <noise><type>gaussian</type><mean>0.0</mean><stddev>0.003</stddev></noise>
+          </lidar>
+        </sensor>
       </link>
+
+      <!-- 그리퍼 바 (0.09x0.02x0.02): 접힘 0° = +x 밀착, 전개 90° = ±y.
+           front robot은 앞바퀴 '앞면' 3cm 지점을 막는다 (앞뒤 케이지). -->
+      <link name="grip_left">
+        <pose relative_to="base_link">0.08 0.10 -0.02 0 0 0</pose>
+        <inertial>
+          <mass>0.02</mass>
+          <inertia><ixx>1e-5</ixx><iyy>1e-5</iyy><izz>1e-5</izz><ixy>0</ixy><ixz>0</ixz><iyz>0</iyz></inertia>
+        </inertial>
+        <visual name="vis">
+          <pose>0.045 0 0 0 0 0</pose>
+          <geometry><box><size>0.09 0.02 0.02</size></box></geometry>
+          <material><ambient>0.2 0.2 0.2 1</ambient><diffuse>0.2 0.2 0.2 1</diffuse></material>
+        </visual>
+        <collision name="col">
+          <pose>0.045 0 0 0 0 0</pose>
+          <geometry><box><size>0.09 0.02 0.02</size></box></geometry>
+        </collision>
+      </link>
+      <joint name="grip_left_joint" type="revolute">
+        <parent>base_link</parent>
+        <child>grip_left</child>
+        <axis>
+          <xyz>0 0 1</xyz>
+          <limit><lower>0</lower><upper>1.5708</upper><effort>5</effort></limit>
+          <dynamics><damping>0.05</damping></dynamics>
+        </axis>
+      </joint>
+      <link name="grip_right">
+        <pose relative_to="base_link">0.08 -0.10 -0.02 0 0 0</pose>
+        <inertial>
+          <mass>0.02</mass>
+          <inertia><ixx>1e-5</ixx><iyy>1e-5</iyy><izz>1e-5</izz><ixy>0</ixy><ixz>0</ixz><iyz>0</iyz></inertia>
+        </inertial>
+        <visual name="vis">
+          <pose>0.045 0 0 0 0 0</pose>
+          <geometry><box><size>0.09 0.02 0.02</size></box></geometry>
+          <material><ambient>0.2 0.2 0.2 1</ambient><diffuse>0.2 0.2 0.2 1</diffuse></material>
+        </visual>
+        <collision name="col">
+          <pose>0.045 0 0 0 0 0</pose>
+          <geometry><box><size>0.09 0.02 0.02</size></box></geometry>
+        </collision>
+      </link>
+      <joint name="grip_right_joint" type="revolute">
+        <parent>base_link</parent>
+        <child>grip_right</child>
+        <axis>
+          <xyz>0 0 -1</xyz>
+          <limit><lower>0</lower><upper>1.5708</upper><effort>5</effort></limit>
+          <dynamics><damping>0.05</damping></dynamics>
+        </axis>
+      </joint>
+
+      <plugin filename="gz-sim-joint-position-controller-system" name="gz::sim::systems::JointPositionController">
+        <joint_name>grip_left_joint</joint_name>
+        <topic>/front/grip_left_cmd</topic>
+        <p_gain>2.0</p_gain><i_gain>0.05</i_gain>
+      </plugin>
+      <plugin filename="gz-sim-joint-position-controller-system" name="gz::sim::systems::JointPositionController">
+        <joint_name>grip_right_joint</joint_name>
+        <topic>/front/grip_right_cmd</topic>
+        <p_gain>2.0</p_gain><i_gain>0.05</i_gain>
+      </plugin>
+
+      <!-- 차량 결합: 시작 시 attach 상태로 생성되므로
+           gripper_controller가 기동 직후 detach를 발행한다. -->
+      <plugin filename="gz-sim-detachable-joint-system" name="gz::sim::systems::DetachableJoint">
+        <parent_link>base_link</parent_link>
+        <child_model>target_vehicle</child_model>
+        <child_link>body</child_link>
+        <detach_topic>/front/vehicle_detach</detach_topic>
+        <attach_topic>/front/vehicle_attach</attach_topic>
+        <output_topic>/front/vehicle_attached</output_topic>
+      </plugin>
 
       <plugin filename="gz-sim-velocity-control-system" name="gz::sim::systems::VelocityControl">
         <topic>/model/front_robot/cmd_vel</topic>
@@ -263,7 +449,7 @@
 
     <!-- ===== Rear Robot ===== -->
     <model name="rear_robot">
-      <pose>0.50 0.60 0.05 0 0 0</pose>
+      <pose>5.25 0.60 0.05 0 0 0</pose>
       <link name="base_link">
         <inertial>
           <mass>2.0</mass>
@@ -279,7 +465,114 @@
           <geometry><box><size>0.04 0.04 0.02</size></box></geometry>
           <material><ambient>0 0 0 1</ambient><diffuse>0 0 0 1</diffuse></material>
         </visual>
+
+        <!-- 초음파 (HC-SR04 대역) — front_robot과 동일 -->
+        <sensor name="us_left" type="gpu_lidar">
+          <pose>0 0.10 0 0 0 1.5708</pose>
+          <topic>/rear/us_left</topic>
+          <update_rate>20</update_rate>
+          <lidar>
+            <scan>
+              <horizontal>
+                <samples>5</samples><resolution>1</resolution>
+                <min_angle>-0.131</min_angle><max_angle>0.131</max_angle>
+              </horizontal>
+              <vertical><samples>1</samples><min_angle>0</min_angle><max_angle>0</max_angle></vertical>
+            </scan>
+            <range><min>0.02</min><max>2.0</max><resolution>0.003</resolution></range>
+            <noise><type>gaussian</type><mean>0.0</mean><stddev>0.003</stddev></noise>
+          </lidar>
+        </sensor>
+        <sensor name="us_right" type="gpu_lidar">
+          <pose>0 -0.10 0 0 0 -1.5708</pose>
+          <topic>/rear/us_right</topic>
+          <update_rate>20</update_rate>
+          <lidar>
+            <scan>
+              <horizontal>
+                <samples>5</samples><resolution>1</resolution>
+                <min_angle>-0.131</min_angle><max_angle>0.131</max_angle>
+              </horizontal>
+              <vertical><samples>1</samples><min_angle>0</min_angle><max_angle>0</max_angle></vertical>
+            </scan>
+            <range><min>0.02</min><max>2.0</max><resolution>0.003</resolution></range>
+            <noise><type>gaussian</type><mean>0.0</mean><stddev>0.003</stddev></noise>
+          </lidar>
+        </sensor>
       </link>
+
+      <!-- 그리퍼 바: rear robot은 뒷바퀴 '뒷면' 3cm 지점을 막는다.
+           접힘 0° = -x 밀착, 전개 90° = ±y (front와 앞뒤 케이지 완성) -->
+      <link name="grip_left">
+        <pose relative_to="base_link">-0.08 0.10 -0.02 0 0 0</pose>
+        <inertial>
+          <mass>0.02</mass>
+          <inertia><ixx>1e-5</ixx><iyy>1e-5</iyy><izz>1e-5</izz><ixy>0</ixy><ixz>0</ixz><iyz>0</iyz></inertia>
+        </inertial>
+        <visual name="vis">
+          <pose>-0.045 0 0 0 0 0</pose>
+          <geometry><box><size>0.09 0.02 0.02</size></box></geometry>
+          <material><ambient>0.2 0.2 0.2 1</ambient><diffuse>0.2 0.2 0.2 1</diffuse></material>
+        </visual>
+        <collision name="col">
+          <pose>-0.045 0 0 0 0 0</pose>
+          <geometry><box><size>0.09 0.02 0.02</size></box></geometry>
+        </collision>
+      </link>
+      <joint name="grip_left_joint" type="revolute">
+        <parent>base_link</parent>
+        <child>grip_left</child>
+        <axis>
+          <xyz>0 0 -1</xyz>
+          <limit><lower>0</lower><upper>1.5708</upper><effort>5</effort></limit>
+          <dynamics><damping>0.05</damping></dynamics>
+        </axis>
+      </joint>
+      <link name="grip_right">
+        <pose relative_to="base_link">-0.08 -0.10 -0.02 0 0 0</pose>
+        <inertial>
+          <mass>0.02</mass>
+          <inertia><ixx>1e-5</ixx><iyy>1e-5</iyy><izz>1e-5</izz><ixy>0</ixy><ixz>0</ixz><iyz>0</iyz></inertia>
+        </inertial>
+        <visual name="vis">
+          <pose>-0.045 0 0 0 0 0</pose>
+          <geometry><box><size>0.09 0.02 0.02</size></box></geometry>
+          <material><ambient>0.2 0.2 0.2 1</ambient><diffuse>0.2 0.2 0.2 1</diffuse></material>
+        </visual>
+        <collision name="col">
+          <pose>-0.045 0 0 0 0 0</pose>
+          <geometry><box><size>0.09 0.02 0.02</size></box></geometry>
+        </collision>
+      </link>
+      <joint name="grip_right_joint" type="revolute">
+        <parent>base_link</parent>
+        <child>grip_right</child>
+        <axis>
+          <xyz>0 0 1</xyz>
+          <limit><lower>0</lower><upper>1.5708</upper><effort>5</effort></limit>
+          <dynamics><damping>0.05</damping></dynamics>
+        </axis>
+      </joint>
+
+      <plugin filename="gz-sim-joint-position-controller-system" name="gz::sim::systems::JointPositionController">
+        <joint_name>grip_left_joint</joint_name>
+        <topic>/rear/grip_left_cmd</topic>
+        <p_gain>2.0</p_gain><i_gain>0.05</i_gain>
+      </plugin>
+      <plugin filename="gz-sim-joint-position-controller-system" name="gz::sim::systems::JointPositionController">
+        <joint_name>grip_right_joint</joint_name>
+        <topic>/rear/grip_right_cmd</topic>
+        <p_gain>2.0</p_gain><i_gain>0.05</i_gain>
+      </plugin>
+
+      <plugin filename="gz-sim-detachable-joint-system" name="gz::sim::systems::DetachableJoint">
+        <parent_link>base_link</parent_link>
+        <child_model>target_vehicle</child_model>
+        <child_link>body</child_link>
+        <detach_topic>/rear/vehicle_detach</detach_topic>
+        <attach_topic>/rear/vehicle_attach</attach_topic>
+        <output_topic>/rear/vehicle_attached</output_topic>
+      </plugin>
 
       <plugin filename="gz-sim-velocity-control-system" name="gz::sim::systems::VelocityControl">
         <topic>/model/rear_robot/cmd_vel</topic>

@@ -7,6 +7,7 @@ launch/deliverybot.launch.py
 launch/sim.launch.py
 parking_gz_sim/__init__.py
 parking_gz_sim/cctv_map_builder.py
+parking_gz_sim/gripper_controller.py
 parking_gz_sim/map_astar_planner.py
 parking_gz_sim/sim_rigid_body_sync.py
 parking_gz_sim/waypoint_publisher.py

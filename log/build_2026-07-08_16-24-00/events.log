@@ -1,0 +1,76 @@
+[0.000000] (-) TimerEvent: {}
+[0.000671] (parking_gz_sim) JobQueued: {'identifier': 'parking_gz_sim', 'dependencies': OrderedDict()}
+[0.001359] (parking_gz_sim) JobStarted: {'identifier': 'parking_gz_sim'}
+[0.099628] (-) TimerEvent: {}
+[0.200168] (-) TimerEvent: {}
+[0.300738] (-) TimerEvent: {}
+[0.401377] (-) TimerEvent: {}
+[0.502067] (-) TimerEvent: {}
+[0.602949] (-) TimerEvent: {}
+[0.703344] (-) TimerEvent: {}
+[0.803854] (-) TimerEvent: {}
+[0.904441] (-) TimerEvent: {}
+[1.005174] (-) TimerEvent: {}
+[1.105914] (-) TimerEvent: {}
+[1.206400] (-) TimerEvent: {}
+[1.306937] (-) TimerEvent: {}
+[1.407554] (-) TimerEvent: {}
+[1.508226] (-) TimerEvent: {}
+[1.608700] (-) TimerEvent: {}
+[1.709100] (-) TimerEvent: {}
+[1.810062] (-) TimerEvent: {}
+[1.910631] (-) TimerEvent: {}
+[2.011113] (-) TimerEvent: {}
+[2.090558] (parking_gz_sim) Command: {'cmd': ['/usr/bin/python3', '-W', 'ignore:setup.py install is deprecated', '-W', 'ignore:easy_install command is deprecated', 'setup.py', 'egg_info', '--egg-base', '../build/parking_gz_sim', 'build', '--build-base', '/home/shiha/gz_ws/build/parking_gz_sim/build', 'install', '--record', '/home/shiha/gz_ws/build/parking_gz_sim/install.log', '--single-version-externally-managed', 'install_data'], 'cwd': '/home/shiha/gz_ws/src', 'env': {'PYTHON_BASIC_REPL': '1', 'LESSOPEN': '| /usr/bin/lesspipe %s', 'CONDA_PROMPT_MODIFIER': '(base)', 'GZ_SIM_RESOURCE_PATH': '/opt/ros/jazzy/share', 'AI_AGENT': 'claude-code_2-1-204_agent', 'USER': 'shiha', 'CLAUDE_CODE_ENTRYPOINT': 'cli', 'GZ_CONFIG_PATH': '/opt/ros/jazzy/opt/gz_sim_vendor/share/gz:/opt/ros/jazzy/opt/sdformat_vendor/share/gz:/opt/ros/jazzy/opt/gz_gui_vendor/share/gz:/opt/ros/jazzy/opt/gz_transport_vendor/share/gz:/opt/ros/jazzy/opt/gz_rendering_vendor/share/gz:/opt/ros/jazzy/opt/gz_plugin_vendor/share/gz:/opt/ros/jazzy/opt/gz_fuel_tools_vendor/share/gz:/opt/ros/jazzy/opt/gz_msgs_vendor/share/gz:/opt/ros/jazzy/opt/gz_common_vendor/share/gz', 'GIT_EDITOR': 'true', 'GIT_ASKPASS': '/home/shiha/.vscode-server/bin/4fe60c8b1cdac1c4c174f2fb180d0d758272d713/extensions/git/dist/askpass.sh', 'SHLVL': '3', 'LD_LIBRARY_PATH': '/home/shiha/my_ws/install/msg_interface_example/lib:/opt/ros/jazzy/opt/gz_sim_vendor/lib:/opt/ros/jazzy/opt/gz_sensors_vendor/lib:/opt/ros/jazzy/opt/gz_physics_vendor/lib:/opt/ros/jazzy/opt/sdformat_vendor/lib:/opt/ros/jazzy/opt/rviz_ogre_vendor/lib:/opt/ros/jazzy/lib/x86_64-linux-gnu:/opt/ros/jazzy/opt/gz_gui_vendor/lib:/opt/ros/jazzy/opt/gz_transport_vendor/lib:/opt/ros/jazzy/opt/gz_rendering_vendor/lib:/opt/ros/jazzy/opt/gz_plugin_vendor/lib:/opt/ros/jazzy/opt/gz_fuel_tools_vendor/lib:/opt/ros/jazzy/opt/gz_msgs_vendor/lib:/opt/ros/jazzy/opt/gz_common_vendor/lib:/opt/ros/jazzy/opt/gz_math_vendor/lib:/opt/ros/jazzy/opt/gz_utils_vendor/lib:/opt/ros/jazzy/opt/gz_tools_vendor/lib:/opt/ros/jazzy/opt/gz_ogre_next_vendor/lib:/opt/ros/jazzy/opt/gz_dartsim_vendor/lib:/opt/ros/jazzy/opt/gz_cmake_vendor/lib:/opt/ros/jazzy/lib', 'WT_PROFILE_ID': '{6d910fe7-44b4-5f4a-a960-d93ced314d24}', 'MOTD_SHOWN': 'update-motd', 'HOME': '/home/shiha', 'CONDA_SHLVL': '1', 'OLDPWD': '/home/shiha/gz_ws', 'TERM_PROGRAM_VERSION': '1.127.0', 'VSCODE_IPC_HOOK_CLI': '/run/user/1000/vscode-ipc-eb9b6f66-67c5-4d6b-8bb8-370a27828393.sock', 'ROS_PYTHON_VERSION': '3', 'VSCODE_GIT_ASKPASS_MAIN': '/home/shiha/.vscode-server/bin/4fe60c8b1cdac1c4c174f2fb180d0d758272d713/extensions/git/dist/askpass-main.js', 'CLAUDE_CODE_CHILD_SESSION': '1', 'VSCODE_GIT_ASKPASS_NODE': '/home/shiha/.vscode-server/bin/4fe60c8b1cdac1c4c174f2fb180d0d758272d713/node', 'PYDEVD_DISABLE_FILE_VALIDATION': '1', 'BUNDLED_DEBUGPY_PATH': '/home/shiha/.vscode-server/extensions/ms-python.debugpy-2026.6.0-linux-x64/bundled/libs/debugpy', 'VSCODE_PYTHON_AUTOACTIVATE_GUARD': '1', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus', 'COLORTERM': 'truecolor', '_CE_M': '', 'WSL_DISTRO_NAME': 'Ubuntu-24.04', '_CONDA_ROOT': '/home/shiha/miniconda3', 'WAYLAND_DISPLAY': 'wayland-0', 'COLCON_PREFIX_PATH': '/home/shiha/my_ws/install', 'ROS_DISTRO': 'jazzy', 'LOGNAME': 'shiha', 'NAME': 'Code', 'WSL_INTEROP': '/run/WSL/58304_interop', 'PULSE_SERVER': 'unix:/mnt/wslg/PulseServer', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'CLAUDE_CODE_SSE_PORT': '16294', 'TERM': 'xterm-256color', '_CE_CONDA': '', 'PATH': '/home/shiha/.vscode-server/data/User/globalStorage/github.copilot-chat/debugCommand:/home/shiha/.vscode-server/data/User/globalStorage/github.copilot-chat/copilotCli:/home/shiha/.vscode-server/bin/4fe60c8b1cdac1c4c174f2fb180d0d758272d713/bin/remote-cli:/home/shiha/.local/bin:/home/shiha/miniconda3/bin:/home/shiha/miniconda3/condabin:/opt/ros/jazzy/opt/gz_msgs_vendor/bin:/opt/ros/jazzy/opt/gz_tools_vendor/bin:/opt/ros/jazzy/opt/gz_ogre_next_vendor/bin:/opt/ros/jazzy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/wsl/lib:/mnt/c/Users/shiha/AppData/Local/Programs/Python/Python314/Scripts:/mnt/c/Users/shiha/AppData/Local/Programs/Python/Python314:/mnt/c/WINDOWS/system32:/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0:/mnt/c/Program Files (x86)/VMware/VMware Player/bin:/mnt/c/WINDOWS:/mnt/c/WINDOWS/System32/Wbem:/mnt/c/Users/shiha/anaconda3:/mnt/c/Users/shiha/anaconda3/Scripts:/mnt/c/Users/shiha/anaconda3/Library/bin:/mnt/c/WINDOWS/System32/OpenSSH:/mnt/c/Program Files/Git/cmd:/mnt/c/msys64/ucrt64/bin:/mnt/c/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit:/mnt/c/Program Files/Docker/Docker/resources/bin:/mnt/c/Program Files/MATLAB/R2025b/bin:/mnt/c/Program Files/nodejs:/mnt/c/ProgramData/chocolatey/bin:/mnt/c/Users/shiha/.local/bin:/mnt/c/Users/shiha/AppData/Local/Programs/Python/Python312:/mnt/c/Users/shiha/AppData/Local/Programs/Python/Python312/Scripts:/mnt/c/Users/shiha/AppData/Local/Microsoft/WindowsApps/python.exe:/mnt/c/Users/shiha/AppData/Local/Programs/Microsoft VS Code/bin:/mnt/c/Users/shiha/AppData/Roaming/npm:/snap/bin:/home/shiha/.vscode-server/extensions/ms-python.debugpy-2026.6.0-linux-x64/bundled/scripts/noConfigScripts', 'COREPACK_ENABLE_AUTO_PIN': '0', 'WT_SESSION': '49301121-35f1-4c43-abd8-c365e38ccfe9', 'XDG_RUNTIME_DIR': '/run/user/1000/', 'CLAUDE_EFFORT': 'high', 'DISPLAY': ':0', 'VSCODE_DEBUGPY_ADAPTER_ENDPOINTS': '/home/shiha/.vscode-server/extensions/ms-python.debugpy-2026.6.0-linux-x64/.noConfigDebugAdapterEndpoints/endpoint-e06ac0f66d0b9b14.txt', 'NoDefaultCurrentDirectoryInExePath': '1', 'LANG': 'ko_KR.UTF-8', 'PYTHONSTARTUP': '/home/shiha/.vscode-server/data/User/workspaceStorage/22671c233b6b47ed10525fc471d7eb27/ms-python.python/pythonrc.py', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=00:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.avif=01;35:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:*~=00;90:*#=00;90:*.bak=00;90:*.crdownload=00;90:*.dpkg-dist=00;90:*.dpkg-new=00;90:*.dpkg-old=00;90:*.dpkg-tmp=00;90:*.old=00;90:*.orig=00;90:*.part=00;90:*.rej=00;90:*.rpmnew=00;90:*.rpmorig=00;90:*.rpmsave=00;90:*.swp=00;90:*.tmp=00;90:*.ucf-dist=00;90:*.ucf-new=00;90:*.ucf-old=00;90:', 'VSCODE_GIT_IPC_HANDLE': '/run/user/1000/vscode-git-9511bfebd2.sock', 'TERM_PROGRAM': 'vscode', 'AMENT_PREFIX_PATH': '/home/shiha/my_ws/install/using_my_custom_interface_package:/home/shiha/my_ws/install/my_rclpy_package:/home/shiha/my_ws/install/msg_interface_example:/home/shiha/my_ws/install/learning_tf2:/opt/ros/jazzy', 'CONDA_PYTHON_EXE': '/home/shiha/miniconda3/bin/python', 'SHELL': '/bin/bash', 'CLAUDE_CODE_SESSION_ID': '340fb058-9cf7-4e10-a384-2858b44626da', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'CONDA_DEFAULT_ENV': 'base', 'CLAUDECODE': '1', '_CONDA_EXE': '/home/shiha/miniconda3/bin/conda', 'ROS_AUTOMATIC_DISCOVERY_RANGE': 'SUBNET', 'VSCODE_GIT_ASKPASS_EXTRA_ARGS': '', 'PWD': '/home/shiha/gz_ws/build/parking_gz_sim', 'COPILOT_DEBUG_NONCE': '08c811997df90f5df819e4750961a9e1', 'CONDA_EXE': '/home/shiha/miniconda3/bin/conda', 'XDG_DATA_DIRS': '/usr/local/share:/usr/share:/var/lib/snapd/desktop', 'CLAUDE_CODE_EXECPATH': '/home/shiha/.local/share/claude/versions/2.1.204', 'PYTHONPATH': '/home/shiha/gz_ws/build/parking_gz_sim/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/shiha/gz_ws/install/parking_gz_sim/lib/python3.12/site-packages:/home/shiha/my_ws/build/using_my_custom_interface_package:/home/shiha/my_ws/install/using_my_custom_interface_package/lib/python3.12/site-packages:/home/shiha/my_ws/build/my_rclpy_package:/home/shiha/my_ws/install/my_rclpy_package/lib/python3.12/site-packages:/home/shiha/my_ws/install/msg_interface_example/lib/python3.12/site-packages:/home/shiha/my_ws/build/learning_tf2:/home/shiha/my_ws/install/learning_tf2/lib/python3.12/site-packages:/opt/ros/jazzy/lib/python3.12/site-packages', 'CONDA_PREFIX': '/home/shiha/miniconda3', 'COLCON': '1', 'WSL2_GUI_APPS_ENABLED': '1', 'HOSTTYPE': 'x86_64', 'CMAKE_PREFIX_PATH': '/home/shiha/my_ws/install/msg_interface_example:/opt/ros/jazzy/opt/gz_sim_vendor:/opt/ros/jazzy/opt/gz_sensors_vendor:/opt/ros/jazzy/opt/gz_physics_vendor:/opt/ros/jazzy/opt/sdformat_vendor:/opt/ros/jazzy/opt/gz_gui_vendor:/opt/ros/jazzy/opt/gz_transport_vendor:/opt/ros/jazzy/opt/gz_rendering_vendor:/opt/ros/jazzy/opt/gz_plugin_vendor:/opt/ros/jazzy/opt/gz_fuel_tools_vendor:/opt/ros/jazzy/opt/gz_msgs_vendor:/opt/ros/jazzy/opt/gz_common_vendor:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_tools_vendor:/opt/ros/jazzy/opt/gz_ogre_next_vendor:/opt/ros/jazzy/opt/gz_dartsim_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor', 'WSLENV': 'ELECTRON_RUN_AS_NODE/w:WT_SESSION:WT_PROFILE_ID:'}, 'shell': False}
+[2.111415] (-) TimerEvent: {}
+[2.212155] (-) TimerEvent: {}
+[2.312786] (-) TimerEvent: {}
+[2.413504] (-) TimerEvent: {}
+[2.514206] (-) TimerEvent: {}
+[2.614622] (-) TimerEvent: {}
+[2.715190] (-) TimerEvent: {}
+[2.815892] (-) TimerEvent: {}
+[2.916536] (-) TimerEvent: {}
+[3.017625] (-) TimerEvent: {}
+[3.118121] (-) TimerEvent: {}
+[3.180486] (parking_gz_sim) StdoutLine: {'line': b'running egg_info\n'}
+[3.218433] (-) TimerEvent: {}
+[3.273412] (parking_gz_sim) StdoutLine: {'line': b'writing ../build/parking_gz_sim/parking_gz_sim.egg-info/PKG-INFO\n'}
+[3.275477] (parking_gz_sim) StdoutLine: {'line': b'writing dependency_links to ../build/parking_gz_sim/parking_gz_sim.egg-info/dependency_links.txt\n'}
+[3.277427] (parking_gz_sim) StdoutLine: {'line': b'writing entry points to ../build/parking_gz_sim/parking_gz_sim.egg-info/entry_points.txt\n'}
+[3.278397] (parking_gz_sim) StdoutLine: {'line': b'writing requirements to ../build/parking_gz_sim/parking_gz_sim.egg-info/requires.txt\n'}
+[3.279665] (parking_gz_sim) StdoutLine: {'line': b'writing top-level names to ../build/parking_gz_sim/parking_gz_sim.egg-info/top_level.txt\n'}
+[3.318809] (-) TimerEvent: {}
+[3.419581] (-) TimerEvent: {}
+[3.492202] (parking_gz_sim) StdoutLine: {'line': b"reading manifest file '../build/parking_gz_sim/parking_gz_sim.egg-info/SOURCES.txt'\n"}
+[3.494487] (parking_gz_sim) StdoutLine: {'line': b"writing manifest file '../build/parking_gz_sim/parking_gz_sim.egg-info/SOURCES.txt'\n"}
+[3.495376] (parking_gz_sim) StdoutLine: {'line': b'running build\n'}
+[3.496370] (parking_gz_sim) StdoutLine: {'line': b'running build_py\n'}
+[3.496678] (parking_gz_sim) StdoutLine: {'line': b'copying parking_gz_sim/map_astar_planner.py -> /home/shiha/gz_ws/build/parking_gz_sim/build/lib/parking_gz_sim\n'}
+[3.497534] (parking_gz_sim) StdoutLine: {'line': b'running install\n'}
+[3.514163] (parking_gz_sim) StdoutLine: {'line': b'running install_lib\n'}
+[3.520033] (-) TimerEvent: {}
+[3.592988] (parking_gz_sim) StdoutLine: {'line': b'copying /home/shiha/gz_ws/build/parking_gz_sim/build/lib/parking_gz_sim/map_astar_planner.py -> /home/shiha/gz_ws/install/parking_gz_sim/lib/python3.12/site-packages/parking_gz_sim\n'}
+[3.597077] (parking_gz_sim) StdoutLine: {'line': b'byte-compiling /home/shiha/gz_ws/install/parking_gz_sim/lib/python3.12/site-packages/parking_gz_sim/map_astar_planner.py to map_astar_planner.cpython-312.pyc\n'}
+[3.606854] (parking_gz_sim) StdoutLine: {'line': b'running install_data\n'}
+[3.607535] (parking_gz_sim) StdoutLine: {'line': b'running install_egg_info\n'}
+[3.620409] (-) TimerEvent: {}
+[3.699837] (parking_gz_sim) StdoutLine: {'line': b"removing '/home/shiha/gz_ws/install/parking_gz_sim/lib/python3.12/site-packages/parking_gz_sim-0.1.0-py3.12.egg-info' (and everything under it)\n"}
+[3.703462] (parking_gz_sim) StdoutLine: {'line': b'Copying ../build/parking_gz_sim/parking_gz_sim.egg-info to /home/shiha/gz_ws/install/parking_gz_sim/lib/python3.12/site-packages/parking_gz_sim-0.1.0-py3.12.egg-info\n'}
+[3.709611] (parking_gz_sim) StdoutLine: {'line': b'running install_scripts\n'}
+[3.720877] (-) TimerEvent: {}
+[3.821734] (-) TimerEvent: {}
+[3.922437] (-) TimerEvent: {}
+[4.022990] (-) TimerEvent: {}
+[4.123470] (-) TimerEvent: {}
+[4.224155] (-) TimerEvent: {}
+[4.324771] (-) TimerEvent: {}
+[4.343953] (parking_gz_sim) StdoutLine: {'line': b'Installing cctv_map_builder script to /home/shiha/gz_ws/install/parking_gz_sim/lib/parking_gz_sim\n'}
+[4.344976] (parking_gz_sim) StdoutLine: {'line': b'Installing map_astar_planner script to /home/shiha/gz_ws/install/parking_gz_sim/lib/parking_gz_sim\n'}
+[4.346338] (parking_gz_sim) StdoutLine: {'line': b'Installing sim_rigid_body_sync script to /home/shiha/gz_ws/install/parking_gz_sim/lib/parking_gz_sim\n'}
+[4.347799] (parking_gz_sim) StdoutLine: {'line': b'Installing waypoint_publisher script to /home/shiha/gz_ws/install/parking_gz_sim/lib/parking_gz_sim\n'}
+[4.350268] (parking_gz_sim) StdoutLine: {'line': b"writing list of installed files to '/home/shiha/gz_ws/build/parking_gz_sim/install.log'\n"}
+[4.425294] (-) TimerEvent: {}
+[4.471066] (parking_gz_sim) CommandEnded: {'returncode': 0}
+[4.515682] (parking_gz_sim) JobEnded: {'identifier': 'parking_gz_sim', 'rc': 0}
+[4.519535] (-) EventReactorShutdown: {}

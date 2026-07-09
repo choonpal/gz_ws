@@ -1,0 +1,54 @@
+[1.248s] Invoking command in '/home/shiha/gz_ws/build/parking_gz_sim': CONDA_PROMPT_MODIFIER=(base) PYTHONPATH=/home/shiha/gz_ws/build/parking_gz_sim/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/shiha/gz_ws/install/parking_gz_sim/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --uninstall --editable --build-directory /home/shiha/gz_ws/build/parking_gz_sim/build
+[1.528s] running develop
+[1.691s] Removing /home/shiha/gz_ws/install/parking_gz_sim/lib/python3.12/site-packages/parking-gz-sim.egg-link (link to .)
+[1.716s] Invoked command in '/home/shiha/gz_ws/build/parking_gz_sim' returned '0': CONDA_PROMPT_MODIFIER=(base) PYTHONPATH=/home/shiha/gz_ws/build/parking_gz_sim/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/shiha/gz_ws/install/parking_gz_sim/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --uninstall --editable --build-directory /home/shiha/gz_ws/build/parking_gz_sim/build
+[1.717s] Invoking command in '/home/shiha/gz_ws/src': CONDA_PROMPT_MODIFIER=(base) PYTHONPATH=/home/shiha/gz_ws/build/parking_gz_sim/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/shiha/gz_ws/install/parking_gz_sim/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../build/parking_gz_sim build --build-base /home/shiha/gz_ws/build/parking_gz_sim/build install --record /home/shiha/gz_ws/build/parking_gz_sim/install.log --single-version-externally-managed install_data --force
+[1.957s] running egg_info
+[1.976s] writing ../build/parking_gz_sim/parking_gz_sim.egg-info/PKG-INFO
+[1.977s] writing dependency_links to ../build/parking_gz_sim/parking_gz_sim.egg-info/dependency_links.txt
+[1.977s] writing entry points to ../build/parking_gz_sim/parking_gz_sim.egg-info/entry_points.txt
+[1.978s] writing requirements to ../build/parking_gz_sim/parking_gz_sim.egg-info/requires.txt
+[1.978s] writing top-level names to ../build/parking_gz_sim/parking_gz_sim.egg-info/top_level.txt
+[2.018s] reading manifest file '../build/parking_gz_sim/parking_gz_sim.egg-info/SOURCES.txt'
+[2.021s] writing manifest file '../build/parking_gz_sim/parking_gz_sim.egg-info/SOURCES.txt'
+[2.021s] running build
+[2.021s] running build_py
+[2.021s] creating /home/shiha/gz_ws/build/parking_gz_sim/build
+[2.022s] creating /home/shiha/gz_ws/build/parking_gz_sim/build/lib
+[2.022s] creating /home/shiha/gz_ws/build/parking_gz_sim/build/lib/parking_gz_sim
+[2.022s] copying parking_gz_sim/cctv_map_builder.py -> /home/shiha/gz_ws/build/parking_gz_sim/build/lib/parking_gz_sim
+[2.022s] copying parking_gz_sim/sim_rigid_body_sync.py -> /home/shiha/gz_ws/build/parking_gz_sim/build/lib/parking_gz_sim
+[2.023s] copying parking_gz_sim/waypoint_publisher.py -> /home/shiha/gz_ws/build/parking_gz_sim/build/lib/parking_gz_sim
+[2.023s] copying parking_gz_sim/__init__.py -> /home/shiha/gz_ws/build/parking_gz_sim/build/lib/parking_gz_sim
+[2.023s] copying parking_gz_sim/map_astar_planner.py -> /home/shiha/gz_ws/build/parking_gz_sim/build/lib/parking_gz_sim
+[2.023s] running install
+[2.029s] running install_lib
+[2.050s] creating /home/shiha/gz_ws/install/parking_gz_sim/lib/python3.12/site-packages/parking_gz_sim
+[2.051s] copying /home/shiha/gz_ws/build/parking_gz_sim/build/lib/parking_gz_sim/cctv_map_builder.py -> /home/shiha/gz_ws/install/parking_gz_sim/lib/python3.12/site-packages/parking_gz_sim
+[2.052s] copying /home/shiha/gz_ws/build/parking_gz_sim/build/lib/parking_gz_sim/sim_rigid_body_sync.py -> /home/shiha/gz_ws/install/parking_gz_sim/lib/python3.12/site-packages/parking_gz_sim
+[2.052s] copying /home/shiha/gz_ws/build/parking_gz_sim/build/lib/parking_gz_sim/waypoint_publisher.py -> /home/shiha/gz_ws/install/parking_gz_sim/lib/python3.12/site-packages/parking_gz_sim
+[2.053s] copying /home/shiha/gz_ws/build/parking_gz_sim/build/lib/parking_gz_sim/__init__.py -> /home/shiha/gz_ws/install/parking_gz_sim/lib/python3.12/site-packages/parking_gz_sim
+[2.053s] copying /home/shiha/gz_ws/build/parking_gz_sim/build/lib/parking_gz_sim/map_astar_planner.py -> /home/shiha/gz_ws/install/parking_gz_sim/lib/python3.12/site-packages/parking_gz_sim
+[2.054s] byte-compiling /home/shiha/gz_ws/install/parking_gz_sim/lib/python3.12/site-packages/parking_gz_sim/cctv_map_builder.py to cctv_map_builder.cpython-312.pyc
+[2.058s] byte-compiling /home/shiha/gz_ws/install/parking_gz_sim/lib/python3.12/site-packages/parking_gz_sim/sim_rigid_body_sync.py to sim_rigid_body_sync.cpython-312.pyc
+[2.064s] byte-compiling /home/shiha/gz_ws/install/parking_gz_sim/lib/python3.12/site-packages/parking_gz_sim/waypoint_publisher.py to waypoint_publisher.cpython-312.pyc
+[2.065s] byte-compiling /home/shiha/gz_ws/install/parking_gz_sim/lib/python3.12/site-packages/parking_gz_sim/__init__.py to __init__.cpython-312.pyc
+[2.065s] byte-compiling /home/shiha/gz_ws/install/parking_gz_sim/lib/python3.12/site-packages/parking_gz_sim/map_astar_planner.py to map_astar_planner.cpython-312.pyc
+[2.068s] running install_data
+[2.068s] copying resource/parking_gz_sim -> /home/shiha/gz_ws/install/parking_gz_sim/share/ament_index/resource_index/packages
+[2.069s] copying package.xml -> /home/shiha/gz_ws/install/parking_gz_sim/share/parking_gz_sim
+[2.070s] copying launch/deliverybot.launch.py -> /home/shiha/gz_ws/install/parking_gz_sim/share/parking_gz_sim/launch
+[2.070s] copying launch/sim.launch.py -> /home/shiha/gz_ws/install/parking_gz_sim/share/parking_gz_sim/launch
+[2.071s] copying worlds/parking_lot.sdf -> /home/shiha/gz_ws/install/parking_gz_sim/share/parking_gz_sim/worlds
+[2.071s] copying worlds/deliverybot_parking.sdf -> /home/shiha/gz_ws/install/parking_gz_sim/share/parking_gz_sim/worlds
+[2.071s] copying config/bridge_deliverybot.yaml -> /home/shiha/gz_ws/install/parking_gz_sim/share/parking_gz_sim/config
+[2.072s] copying config/bridge.yaml -> /home/shiha/gz_ws/install/parking_gz_sim/share/parking_gz_sim/config
+[2.073s] running install_egg_info
+[2.091s] Copying ../build/parking_gz_sim/parking_gz_sim.egg-info to /home/shiha/gz_ws/install/parking_gz_sim/lib/python3.12/site-packages/parking_gz_sim-0.1.0-py3.12.egg-info
+[2.093s] running install_scripts
+[2.250s] Installing cctv_map_builder script to /home/shiha/gz_ws/install/parking_gz_sim/lib/parking_gz_sim
+[2.251s] Installing map_astar_planner script to /home/shiha/gz_ws/install/parking_gz_sim/lib/parking_gz_sim
+[2.251s] Installing sim_rigid_body_sync script to /home/shiha/gz_ws/install/parking_gz_sim/lib/parking_gz_sim
+[2.251s] Installing waypoint_publisher script to /home/shiha/gz_ws/install/parking_gz_sim/lib/parking_gz_sim
+[2.251s] writing list of installed files to '/home/shiha/gz_ws/build/parking_gz_sim/install.log'
+[2.290s] Invoked command in '/home/shiha/gz_ws/src' returned '0': CONDA_PROMPT_MODIFIER=(base) PYTHONPATH=/home/shiha/gz_ws/build/parking_gz_sim/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/shiha/gz_ws/install/parking_gz_sim/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../build/parking_gz_sim build --build-base /home/shiha/gz_ws/build/parking_gz_sim/build install --record /home/shiha/gz_ws/build/parking_gz_sim/install.log --single-version-externally-managed install_data --force

@@ -62,10 +62,6 @@ def generate_launch_description():
             parameters=[
                 sim_time,
                 {
-                    'front_init_x': 0.75,
-                    'front_init_y': 0.60,
-                    'rear_init_x': 0.50,
-                    'rear_init_y': 0.60,
                     'default_goal_x': 2.5,
                     'default_goal_y': 3.0,
                     'inflation': 0.15,
@@ -79,6 +75,14 @@ def generate_launch_description():
         Node(
             package='parking_gz_sim',
             executable='sim_rigid_body_sync',
+            parameters=[sim_time],
+            output='screen',
+        ),
+
+        # 그립 위치 도착 → 초음파 정렬 → 그리퍼 파지 → 차량 결합 → /robot/lifted
+        Node(
+            package='parking_gz_sim',
+            executable='gripper_controller',
             parameters=[sim_time],
             output='screen',
         ),

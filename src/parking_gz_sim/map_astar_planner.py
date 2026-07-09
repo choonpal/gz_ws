@@ -5,7 +5,16 @@ map_astar_planner.py — CCTV 맵 기반 A* 경로계획 (명세 7-2 fleet_manag
 waypoint_publisher(기둥 하드코딩)와 달리:
   /parking/map (OccupancyGrid, CCTV가 만든 맵) 구독
   /goal_pose (PoseStamped, RViz2 'Goal Pose' 클릭과 호환) 구독
-  → 팽창(inflation) → 0.5m 격자로 다운샘플 → A* → /virtual_robot/waypoints 발행
+  → 팽창(inflation) → 격자 다운샘플 → A* → /virtual_robot/waypoints 발행
+
+2단계 상태 흐름 (require_target=True):
+  대기 → /parking/target_ready 수신
+  → [to_target] 차량 +x쪽 축선상 정렬점(standoff)으로 경로계획.
+    차량 중심을 직접 목표로 하면 로봇이 옆에서 차체/바퀴에 부딪혀
+    차량을 밀게 되므로, 반드시 차량 밖에서 멈춘다.
+    이후 차량 밑 삽입은 gripper_controller가 저속 직진으로 수행.
+  → gripper_controller가 삽입·정렬·파지·결합 후 /robot/lifted 발행
+  → [to_goal] 최종 목표(/goal_pose 또는 default_goal)로 운반 경로계획
 
 로봇 현재 위치는 두 로봇 odom의 중점(가상 강체 중심)으로 계산.
 """
@@ -18,6 +27,7 @@ import rclpy
 from rclpy.node import Node
 from nav_msgs.msg import OccupancyGrid, Path, Odometry
 from geometry_msgs.msg import PoseStamped
+from std_msgs.msg import Bool
 
 
 class MapAstarPlanner(Node):
@@ -28,17 +38,35 @@ class MapAstarPlanner(Node):
         self.declare_parameter('plan_res', 0.5)      # 계획용 격자 (m)
         self.declare_parameter('default_goal_x', 20.0)
         self.declare_parameter('default_goal_y', 20.0)
-        self.declare_parameter('front_init_x', 3.25)
-        self.declare_parameter('front_init_y', -5.0)
-        self.declare_parameter('rear_init_x', 0.75)
-        self.declare_parameter('rear_init_y', -5.0)
-
+        # 차량 접근 정렬점: 차량 중심에서 +x로 띄우는 거리 (m)
+        # gripper_controller의 approach_standoff와 반드시 같아야 한다.
+        self.declare_parameter('approach_standoff', 0.60)
         self.map_msg = None
         self.front = None
         self.rear = None
-        self.goal = None
+        self.goal = None          # 현재 추종 중인 목표
+        self.user_goal = None     # /goal_pose로 받은 최종 목표
+        self.target_xy = None     # /parking/target_pose (target 차량 위치)
         self.path_msg = None
         self.planned_goal = None
+
+        # 리프트 허가 게이트 (실전의 /robot/lifted 게이트 대응)
+        self.declare_parameter('require_target', True)
+        self.target_ready = False
+        self.create_subscription(Bool, '/parking/target_ready',
+                                 self.ready_cb, 10)
+
+        # 2단계 상태:
+        #   to_target — target_ready 후 대기공간 차량 밑(그립 위치)으로 이동
+        #   to_goal   — 그립·리프트 완료(/robot/lifted) 후 최종 목표로 운반
+        # require_target=False(단독 테스트)면 바로 to_goal에서 시작.
+        self.phase = ('to_target'
+                      if self.get_parameter('require_target').value
+                      else 'to_goal')
+        self.create_subscription(PoseStamped, '/parking/target_pose',
+                                 self.target_pose_cb, 10)
+        self.create_subscription(Bool, '/robot/lifted',
+                                 self.lifted_cb, 10)
 
         self.create_subscription(OccupancyGrid, '/parking/map',
                                  self.map_cb, 1)
@@ -53,32 +81,62 @@ class MapAstarPlanner(Node):
         self.get_logger().info('map_astar_planner 시작 — CCTV 맵 대기')
 
     # ---------------- 콜백 ----------------
+    def ready_cb(self, msg):
+        if msg.data and not self.target_ready:
+            self.target_ready = True
+            self.get_logger().info('target_ready 수신 — 경로계획 허가')
+
     def map_cb(self, msg):
         self.map_msg = msg
 
+    def target_pose_cb(self, msg):
+        self.target_xy = (msg.pose.position.x, msg.pose.position.y)
+
+    def lifted_cb(self, msg):
+        """그립·리프트 완료(/robot/lifted) → 최종 목표로 운반 시작."""
+        if msg.data and self.phase == 'to_target':
+            self.phase = 'to_goal'
+            self.get_logger().info('리프트 완료 수신 — 최종 목표로 운반 시작')
+
     def goal_cb(self, msg):
-        self.goal = (msg.pose.position.x, msg.pose.position.y)
-        self.planned_goal = None   # 재계획 트리거
-        self.get_logger().info(f'새 목표: ({self.goal[0]:.1f}, {self.goal[1]:.1f})')
+        self.user_goal = (msg.pose.position.x, msg.pose.position.y)
+        self.get_logger().info(
+            f'새 목표: ({self.user_goal[0]:.1f}, {self.user_goal[1]:.1f})')
 
     def odom_cb(self, role, msg):
+        # /front/odom, /rear/odom은 이미 world/map 좌표로 들어온다
+        # (cctv_map_builder와 동일 가정). init 값을 더하면 두 번 더해져
+        # 시작 위치가 틀어진다.
         p = msg.pose.pose.position
-        gp = self.get_parameter
         if role == 'front':
-            self.front = (gp('front_init_x').value + p.x,
-                          gp('front_init_y').value + p.y)
+            self.front = (float(p.x), float(p.y))
         else:
-            self.rear = (gp('rear_init_x').value + p.x,
-                         gp('rear_init_y').value + p.y)
+            self.rear = (float(p.x), float(p.y))
 
     # ---------------- 주기 처리 ----------------
     def tick(self):
-        if self.goal is None:
-            gp = self.get_parameter
-            self.goal = (gp('default_goal_x').value, gp('default_goal_y').value)
+        if self.get_parameter('require_target').value and not self.target_ready:
+            return
         if self.map_msg is None or self.front is None or self.rear is None:
             return
-        if self.planned_goal != self.goal:
+
+        if self.phase == 'to_target':
+            # 1단계: 차량 +x쪽 정렬점(standoff)까지만 — 차량 밑 삽입은
+            # gripper_controller 담당 (차량 중심을 목표로 하면 밀어버림)
+            if self.target_xy is None:
+                return
+            so = self.get_parameter('approach_standoff').value
+            self.goal = (self.target_xy[0] + so, self.target_xy[1])
+        else:
+            # 2단계: 최종 목표 (RViz goal_pose 우선, 없으면 기본값)
+            gp = self.get_parameter
+            self.goal = self.user_goal or (gp('default_goal_x').value,
+                                           gp('default_goal_y').value)
+
+        # target_pose의 픽셀 지터로 매 tick 재계획하지 않게 5cm 이상 바뀔 때만
+        if self.planned_goal is None or \
+                math.hypot(self.planned_goal[0] - self.goal[0],
+                           self.planned_goal[1] - self.goal[1]) > 0.05:
             self.plan()
         if self.path_msg is not None:
             self.path_msg.header.stamp = self.get_clock().now().to_msg()

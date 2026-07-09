@@ -26,6 +26,7 @@ setup(
             'waypoint_publisher = parking_gz_sim.waypoint_publisher:main',
             'cctv_map_builder = parking_gz_sim.cctv_map_builder:main',
             'map_astar_planner = parking_gz_sim.map_astar_planner:main',
+            'gripper_controller = parking_gz_sim.gripper_controller:main',
         ],
     },
 )
